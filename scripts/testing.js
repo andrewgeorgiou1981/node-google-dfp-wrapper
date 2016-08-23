@@ -11,10 +11,8 @@ var refreshToken = config.refreshToken;
 
 var dfp = new Dfp(credentials, config, refreshToken);
 
-console.log(dfp);
-
 var prepareQ = function(){
-  return {name : "special%"};
+  return {name : "test-%"};
 };
 
 function getCreativeTemplates(query) {
@@ -26,6 +24,24 @@ function includeCreativeTemplates(items) {
   console.log(items);
   return items;
 }
+
+
+function getCreativeWrappers(query) {
+  return dfp.getCreativeWrappers(query);
+}
+
+function includeCreativeWrappers(items) {
+  // filter line item however you need to
+  console.log(items);
+  return items;
+}
+
+
+
+function updateWrapper(query){
+  return []
+}
+
 Bluebird.resolve(prepareQ())
-.then(getCreativeTemplates)
-.map(includeCreativeTemplates);
+.then(getCreativeWrappers)
+.map(includeCreativeWrappers);
