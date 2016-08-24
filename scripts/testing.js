@@ -41,13 +41,14 @@ function includeCreativeWrappers(items) {
 
 function _updateWrapper(items){
 
-  var x =  {creativeWrappers : {
-    id: '543169',
-    labelId: '543169',
-    header: { htmlSnippet: '<div class="andrew" data-cb-ad-id="%%PATTERN:pos%%">' },
-    footer: { htmlSnippet: '</div>' },
-    ordering: 'NO_PREFERENCE',
-    status: 'ACTIVE'
+  var x =  {
+    creativeWrappers : {
+      id: '543169',
+      labelId: '543169',
+      header: { htmlSnippet: '<div class="123" data-cb-ad-id="%%PATTERN:pos%%">' },
+      footer: { htmlSnippet: '</div>' },
+      ordering: 'NO_PREFERENCE',
+      status: 'ACTIVE'
   }
 };
 var wrapper = o2x(x);
