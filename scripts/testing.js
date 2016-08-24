@@ -1,4 +1,5 @@
 var Dfp = require('../../node-google-dfp-wrapper/index.js');
+var o2x = require('object-to-xml');
 var Bluebird = require('bluebird');
 // These are created by you in the configuration step
 var config = require('../local/config')
@@ -32,16 +33,29 @@ function getCreativeWrappers(query) {
 
 function includeCreativeWrappers(items) {
   // filter line item however you need to
-  console.log(items);
+  console.log(typeof items.id);
   return items;
 }
 
 
 
-function updateWrapper(query){
-  return []
-}
+function _updateWrapper(items){
+
+  var x =  {creativeWrappers : {
+    id: '543169',
+    labelId: '543169',
+    header: { htmlSnippet: '<div class="andrew" data-cb-ad-id="%%PATTERN:pos%%">' },
+    footer: { htmlSnippet: '</div>' },
+    ordering: 'NO_PREFERENCE',
+    status: 'ACTIVE'
+  }
+};
+var wrapper = o2x(x);
+console.log(wrapper);
+ return dfp.updateCreativeWrappers(x);
+ }
 
 Bluebird.resolve(prepareQ())
 .then(getCreativeWrappers)
-.map(includeCreativeWrappers);
+.map(includeCreativeWrappers)
+.then(_updateWrapper);
