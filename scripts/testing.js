@@ -1,6 +1,7 @@
 var Dfp = require('../../node-google-dfp-wrapper/index.js');
-var o2x = require('object-to-xml');
 var Bluebird = require('bluebird');
+var jsonfile = require('jsonfile');
+
 // These are created by you in the configuration step
 var config = require('../local/config')
 
@@ -13,7 +14,7 @@ var refreshToken = config.refreshToken;
 var dfp = new Dfp(credentials, config, refreshToken);
 
 var prepareQ = function(){
-  return {name : "test-%"};
+  return {name : "d%"};
 };
 
 function getCreativeTemplates(query) {
@@ -26,7 +27,6 @@ function includeCreativeTemplates(items) {
   return items;
 }
 
-
 function getCreativeWrappers(query) {
   return dfp.getCreativeWrappers(query);
 }
@@ -38,9 +38,20 @@ function includeCreativeWrappers(items) {
 }
 
 
+function getLabelName(labelID) {
+
+
+}
+
+function writeOutWrappersToFiles(item) {
+  var fName = getLabelName(item.id);
+  var file = '../data.json'
+  jsonfile.writeFile(file, item, function (err) {
+  console.error(err);
+})
+}
 
 function _updateWrapper(items){
-
   var x =  {
     creativeWrappers : {
       id: '543169',
@@ -51,12 +62,10 @@ function _updateWrapper(items){
       status: 'ACTIVE'
   }
 };
-var wrapper = o2x(x);
-console.log(wrapper);
  return dfp.updateCreativeWrappers(x);
- }
+}
 
 Bluebird.resolve(prepareQ())
 .then(getCreativeWrappers)
 .map(includeCreativeWrappers)
-.then(_updateWrapper);
+.then(writeOutWrappers);
