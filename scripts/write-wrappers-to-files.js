@@ -36,16 +36,19 @@ function getLabelNames(wrapper){
     return new  Bluebird.resolve(dfp.getLabel({'id' : wrapper.id}))
 }
 
+
+
 function writeOutWrappersToFiles(labels){
   labels.forEach(
     function(label, index, labels){
       var file = '../' + label[0].name.replace(/ /g, '') +'.json';
-      console.log(file);
-      // var obj = {name: 'JP'}
-      //
-      // jsonfile.writeFile(file, obj, function (err) {
-      //   console.error(err)
-      // })
+      //console.log(file);
+       var obj = _wrappers.filter(function(wrapper){return wrapper.labelId == label[0].id});
+       console.log(obj);
+
+       jsonfile.writeFile(file, obj, function (err) {
+         console.error(err)
+       });
     }
   );
 }
