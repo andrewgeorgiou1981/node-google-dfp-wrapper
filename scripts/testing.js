@@ -14,7 +14,7 @@ var refreshToken = config.refreshToken;
 var dfp = new Dfp(credentials, config, refreshToken);
 
 var prepareQ = function(){
-  return {name : "d%"};
+  return {status : "ACTIVE"};
 };
 
 function getCreativeTemplates(query) {
@@ -38,17 +38,16 @@ function includeCreativeWrappers(items) {
 }
 
 
-function getLabelName(labelID) {
-
-
+function getLabelName(wrapper) {
+  return dfp.getLabelName({'id' : wrapper[0].id});
 }
 
-function writeOutWrappersToFiles(item) {
-  var fName = getLabelName(item.id);
-  var file = '../data.json'
-  jsonfile.writeFile(file, item, function (err) {
-  console.error(err);
-})
+function logger(thing){
+  console.log(thing);
+}
+
+function writeOutWrappersToFiles() {
+  return Bluebird.resolve(getCreativeWrappers( {name : "d%"}));
 }
 
 function _updateWrapper(items){
@@ -67,5 +66,4 @@ function _updateWrapper(items){
 
 Bluebird.resolve(prepareQ())
 .then(getCreativeWrappers)
-.map(includeCreativeWrappers)
-.then(writeOutWrappers);
+.then(logger);
